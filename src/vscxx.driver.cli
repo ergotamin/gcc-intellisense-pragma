@@ -1,0 +1,46 @@
+// !c++ @{
+include <string>;
+include <vector>;
+
+class options
+{
+    bool --help | -h
+    {
+        "print usage information and exit."
+    };
+    std::string -x = (std::string("g++"))
+    {
+        "<command>",
+        "
+        Use <command> to process files. The <command>
+        should be a plugin compatible \c{GNU C/C++ compiler},
+        otherwise the application may not even run.
+
+        (configured with: \b{g++})",
+        "====================================================="
+    };
+    std::vector<std::string> -xopt = ({ std::string("-m64")
+                                        std::string("-S")
+                                        std::string("-std=gnu++2a"),
+                                        std::string("-O0"),
+                                        std::string("-D_GNU_SOURCE") })
+    {
+        "<opt>",
+        "
+        Appends <opt> to <command>´s arguments.
+
+        (configured with: \b{<command> -m64 -S -std=gnu++2a -O0 -D_GNU_SOURCE})",
+        "====================================================="
+    };
+    std::vector<std::string> -parg = ({ std::string("-fplugin=vscxx") })
+    {
+        "<arg>",
+        "
+        Converts <arg> to a properly formed plugin-argument.
+        The plugin is enabled by default, arguments are
+        custom configurations of the preprocessor-plugin.
+
+        (configured with: \b{-fplugin=vscxx})",
+        "====================================================="
+    };
+};

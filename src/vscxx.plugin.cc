@@ -2,12 +2,12 @@
 #// (c) 2019 <http://www.gnu.org/licenses/>
 #// Marcel Bobolz
 #// <ergotamin.source@gmail.com>
-#include "deps"
+#include <vscxx.plugin.hh>
 namespace vscode {
     // Plugin version string and short description.
     static constexpr plugin_info about {
         .version = "0.1-alpha",
-        .help = "A virtual compiler for Microsoft C/C++ Intellisense."
+        .help = "A compiler preprocessor for Microsoft C/C++ Intellisense."
     };
     //===========================================
     static int init(plugin_args *pargs, gcc_version *version)
