@@ -1,35 +1,39 @@
 CXX := g++
-DRIVER_SOURCES := src/vscxx.driver.cxx src/vscxx.driver.cc
-PLUGIN_SOURCES := src/vscxx.lib.cc
+DRIVER_SOURCES := src/__asm_execve.S src/gcc-code.cxx
+PLUGIN_SOURCES := src/plugin.cxx
 GCC_PLUGINS_DIR := $(shell $(CXX) -print-file-name=plugin)
 CXXFLAGS_DRIVER := -m64 -std=gnu++2a -I./src -O2 -Ofast -pedantic -Wall -Wl,-O1
-CXXFLAGS_PLUGIN := -I./src -I$(GCC_PLUGINS_DIR)/include -fPIC -fno-rtti -O2
+CXXFLAGS_PLUGIN := -I$(GCC_PLUGINS_DIR)/include -fPIC -fno-rtti -O2
 
 
 
-vscxx: $(DRIVER_SOURCES)
+gcc-code: $(DRIVER_SOURCES)
 	$(CXX) $(CXXFLAGS_DRIVER) $^ -o $@
 
 
-libvscxx.so: $(PLUGIN_SOURCES)
+vscode.so: $(PLUGIN_SOURCES)
 	$(CXX) -shared $(CXXFLAGS_PLUGIN) $^ -o $@
 
 
-install-bin: vscxx
-	@install -m0755 vscxx /usr/bin/vscxx
+install-bin: gcc-code
+	@install -m0755 gcc-code /usr/bin/gcc-code
 
 
-install-lib: libvscxx.so
-	@install -m0755 libvscxx.so $(GCC_PLUGINS_DIR)
+install-lib: vscode.so
+	@install -m0755 vscode.so $(GCC_PLUGINS_DIR)/vscode.so
+
+
+clean:
+	@rm -f vscode.so gcc-code
 
 
 install: install-bin install-lib
 
 
-all: vscxx libvscxx.so
+all: gcc-code vscode.so install-bin install-lib clean
 
 
 default: all
 
 
-.PHONY: all install
+.PHONY: all install clean
