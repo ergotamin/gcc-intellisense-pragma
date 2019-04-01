@@ -57,6 +57,7 @@ struct gcc_func {
         this->__argv_.emplace_back("/usr/bin/gcc");
         this->__argv_.emplace_back("-S");
         this->__argv_.emplace_back("-std=gnu++2a");
+        this->__argv_.emplace_back("-std=c99");
         this->__argv_.emplace_back("-m64");
         this->__argv_.emplace_back("-O0");
         this->__argv_.emplace_back("-DDEBUG");

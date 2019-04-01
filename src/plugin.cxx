@@ -76,7 +76,6 @@ namespace vscode {
         signal(SIGUSR1, vscode::handle_error);
 
         register_callback(plugin->base_name, PLUGIN_INFO, NULL, (void *)&vscode::about);
-        register_callback(plugin->base_name, PLUGIN_PRAGMAS, &vscode::register_pragma, NULL);
         register_callback(plugin->base_name, PLUGIN_OVERRIDE_GATE, &vscode::gate_pass, NULL);
 
         return 0;
@@ -95,26 +94,6 @@ namespace vscode {
     //
     // **`NOTE: `**
     // ```
-    // Callback for pragma registration
-    // ```
-    // ` ` [**`  `**](@deps)
-    static void register_pragma(void *event, void *data)
-    {
-        c_register_pragma(NULL, "vscode", &handle_pragma);
-    }
-    //
-    // **`NOTE: `**
-    // ```
-    // Handles '#pragma vscode' usage
-    // ```
-    // ` ` [**`  `**](@deps)
-    static void handle_pragma(cpp_reader *reader)
-    {
-        NULL;
-    }
-    //
-    // **`NOTE: `**
-    // ```
     // Overrides the default gate-function
     // ```
     // ` ` [**`  `**](@deps)
@@ -123,7 +102,7 @@ namespace vscode {
         ((errorcount || sorrycount)
          ? (kill(getpid(), SIGUSR1))
          : (0));
-        tree_walk(global_namespace);
+  //    tree_walk(global_namespace);
         __builtin_exit(0);
     }
     //
