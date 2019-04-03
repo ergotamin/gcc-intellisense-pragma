@@ -4,6 +4,7 @@
 // (c) 2018 MIT License Marcel Bobolz
 // <mailto:ergotamin.source@gmail.com>
 //-------------------------------------
+#include <stdlib.h>
 #include <vector>
 //
 extern const char *__progname;

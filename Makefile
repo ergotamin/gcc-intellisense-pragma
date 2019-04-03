@@ -8,7 +8,7 @@ CXXFLAGS_PLUGIN := -I$(GCC_PLUGINS_DIR)/include -fPIC -fno-rtti -O2
 
 
 gcc-code: $(DRIVER_SOURCES)
-	$(CXX) $(CXXFLAGS_DRIVER) $^ -o $@
+	$(CXX) $(CXXFLAGS_DRIVER) $^ -o $@ -lstdc++
 
 
 vscode.so: $(PLUGIN_SOURCES)
